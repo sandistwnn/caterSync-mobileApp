@@ -3,6 +3,7 @@
 **Status**: Prototype / Tugas Pemrograman Mobile Flutter  
 **Platform**: Android, Web, dan dapat dikembangkan ke iOS/Windows  
 **Teknologi**: Flutter + Dart + Provider + Shared Preferences + REST API + Local Notification
+
 **Link Design FIGMA** : https://www.figma.com/design/UzJBe6hE72xs9T1tGsMR9q/CaterSync--Catering-Food-Delivery-Mobile-App-?node-id=0-1&t=XvHyZLX9RryX98bO-1
 
 ---
