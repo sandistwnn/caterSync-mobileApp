@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Menggunakan warna utama sesuai dengan image_2c1901.png
-    const primaryColor = Color(0xFFFF4B3A); // Sesuaikan kode hex dengan figma-mu jika berbeda
     const textButtonColor = Color(0xFFFA4A0C);
 
     return Scaffold(

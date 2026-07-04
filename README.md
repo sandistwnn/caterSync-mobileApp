@@ -1,340 +1,217 @@
 # CaterSync Mobile App
 
-**Status**: Early Development  
-**Platform**: Flutter (Multi-platform: iOS, Android, Web, Windows)
+**Status**: Prototype / Tugas Pemrograman Mobile Flutter  
+**Platform**: Android, Web, dan dapat dikembangkan ke iOS/Windows  
+**Teknologi**: Flutter + Dart + Provider + Shared Preferences + REST API + Local Notification
 
 ---
 
-## 📋 Project Overview
+## 1. Pendahuluan
 
-CaterSync adalah aplikasi mobile untuk memesan makanan dan minuman dengan antarmuka yang menarik. Aplikasi ini dibangun menggunakan **Flutter** dengan fokus pada user experience yang baik dan design yang modern sesuai dengan Figma mockup.
+CaterSync Mobile App adalah aplikasi mobile sederhana yang dibuat sebagai bentuk implementasi tugas pemrograman mobile menggunakan Flutter. Aplikasi ini menampilkan alur pengguna yang sederhana, mulai dari onboarding, login/sign-up, hingga halaman home yang menampilkan daftar menu makanan.
 
-### Fitur Utama
-- **Onboarding Screen**: Halaman perkenalan dengan animasi dan karakter 3D
-- **Login/Sign-up Screen**: Autentikasi user dengan form lengkap (email, password, confirm password)
-- **Home Screen**: Menampilkan menu makanan, minuman, dan camilan dengan kategori tab
-- **Navigation**: Routing antar halaman dengan Navigator
-- **Responsive Design**: Mendukung berbagai ukuran layar
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: Flutter 3.44.1
-- **Language**: Dart 3.12.1
-- **UI**: Material Design 3
-- **State Management**: StatefulWidget (built-in Flutter)
+Tujuan dari pembuatan aplikasi ini adalah untuk menerapkan beberapa konsep penting dalam pengembangan aplikasi mobile, seperti:
+- penggunaan framework Flutter,
+- penerapan state management dengan Provider,
+- integrasi REST API untuk menampilkan data list,
+- penyimpanan data lokal menggunakan Shared Preferences,
+- serta implementasi fitur perangkat berupa local notification.
 
 ---
 
-## 📁 Project Structure
+## 2. Tujuan Project
 
-```
+Project ini dibuat untuk memenuhi beberapa kebutuhan tugas, yaitu:
+1. Membangun aplikasi mobile menggunakan Flutter.
+2. Menggunakan arsitektur sederhana yang terstruktur dan mudah dipahami.
+3. Menerapkan state management dengan Provider.
+4. Mengintegrasikan data dari API.
+5. Menyimpan status login secara lokal.
+6. Menambahkan fitur notifikasi lokal.
+7. Menyimpan hasil pekerjaan pada repository GitHub.
+
+---
+
+## 3. Fitur yang Sudah Diimplementasikan
+
+### 3.1 Onboarding
+- Halaman pembuka yang memperkenalkan aplikasi.
+- Terdapat branding CaterSync dan tombol untuk melanjutkan ke halaman login.
+
+### 3.2 Login dan Sign-up
+- Terdapat form login dan form sign-up dalam satu layar.
+- Pengguna dapat memasukkan email dan password.
+- Terdapat toggle untuk melihat atau menyembunyikan password.
+- Setelah login atau sign-up berhasil, pengguna diarahkan ke halaman home.
+
+### 3.3 Home Screen
+- Menampilkan halaman utama aplikasi.
+- Terdapat kategori menu seperti Foods, Drinks, dan Snacks.
+- Menggunakan data dari API untuk menampilkan daftar makanan.
+- Menyediakan tampilan kartu menu yang menarik dan rapi.
+
+### 3.4 Integrasi REST API
+- Aplikasi mengambil data list makanan dari API publik.
+- Data yang diterima kemudian ditampilkan di layar home.
+- Jika API tidak tersedia, aplikasi tetap dapat menampilkan data cadangan.
+
+### 3.5 Local Storage
+- Status login disimpan menggunakan Shared Preferences.
+- Jika pengguna sudah login sebelumnya, aplikasi langsung masuk ke halaman home.
+
+### 3.6 Local Notification
+- Aplikasi memberikan notifikasi lokal saat login atau pendaftaran berhasil.
+- Fitur ini menunjukkan bahwa aplikasi telah mengimplementasikan fitur perangkat mobile.
+
+---
+
+## 4. Teknologi yang Digunakan
+
+- Flutter
+- Dart
+- Provider
+- Shared Preferences
+- HTTP
+- Flutter Local Notifications
+- Material Design
+
+---
+
+## 5. Struktur Project
+
+```text
 catersync_app/
+├── android/
+├── ios/
 ├── lib/
-│   ├── main.dart              # Entry point aplikasi
-│   └── screen/
-│       ├── onboarding_screen.dart    # Halaman perkenalan
-│       ├── login_screen.dart         # Halaman login & sign-up
-│       └── home_screen.dart          # Halaman menu utama
-├── images/
-│   ├── Picture1-cewe.png      # Gambar karakter cewe
-│   ├── Picture2-cowo.png      # Gambar karakter cowo
-│   └── Picture3-logo.png      # Logo CaterSync
-├── pubspec.yaml               # Dependencies dan konfigurasi
-├── analysis_options.yaml      # Linter rules
-├── android/                   # Android native code
-├── ios/                       # iOS native code
-├── web/                       # Web build files
-└── README.md                  # Dokumentasi ini
+│   ├── main.dart
+│   ├── models/
+│   │   └── food_model.dart
+│   ├── providers/
+│   │   ├── api_provider.dart
+│   │   └── auth_provider.dart
+│   ├── screen/
+│   │   ├── onboarding_screen.dart
+│   │   ├── login_screen.dart
+│   │   └── home_screen.dart
+│   └── services/
+│       └── notification_service.dart
+├── test/
+├── pubspec.yaml
+└── README.md
 ```
 
----
-
-## 🎨 Screens & Features
-
-### 1. **Onboarding Screen** (`lib/screen/onboarding_screen.dart`)
-- **Warna**: Gradient orange-red (#FF4B3A → #FF6347)
-- **Header**: Logo CaterSync + text "Food for Everyone"
-- **Karakter**: Cewe (220×280px, kiri) & Cowo (120×160px, kanan)
-- **CTA**: Tombol "Get started" → navigasi ke Login
-
-### 2. **Login/Sign-up Screen** (`lib/screen/login_screen.dart`)
-- **Warna**: Abu-abu terang (#F5F5F5) + putih header
-- **Tab**: Login & Sign-up (DefaultTabController)
-- **Form Login**:
-  - Email address (TextEditingController)
-  - Password dengan toggle visibility
-  - Link "Forgot passcode?" (dialog popup)
-  - Tombol "Login" → Home Screen
-  
-- **Form Sign-up** (Scrollable dengan SingleChildScrollView):
-  - Name
-  - Email address
-  - Password dengan toggle visibility
-  - Confirm Password dengan toggle visibility
-  - Tombol "Sign-up" → Home Screen
-
-### 3. **Home Screen** (`lib/screen/home_screen.dart`)
-- **Header**: Menu icon + Shopping cart icon
-- **Judul**: "Delicious food for you"
-- **Search Bar**: TextField dengan search icon
-- **Tab Menu**: Foods, Drinks, Snacks
-- **Horizontal List**: Daftar menu dengan card bergambar
-- **Card Item**:
-  - Lingkaran foto (130×130px) di atas
-  - Nama menu
-  - Harga menu
-  - Bayangan smooth
-
-**Data Menu**:
-- **Foods** (7 item): Nasi Telur, Capcay, Nasi Ayam Goreng, Nasi Uduk, Nasi Ayam Penyet, Ikan Mas, Ikan Tongkol Balado
-- **Drinks** (7 item): Es Teh Manis, Es Jeruk Peras, Es Cendol, Es Campur, Wedang Jahe, Jus Alpukat, Es Kelapa
-- **Snacks** (7 item): Pisang Goreng, Bakwan Sayur, Cireng, Tahu Isi, Singkong Goreng, Kue Pancong, Martabak
+Penjelasan singkat:
+- folder models berisi model data.
+- folder providers digunakan untuk mengelola state aplikasi.
+- folder screen berisi tampilan halaman aplikasi.
+- folder services berisi logika notifikasi.
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi
+## 6. Penjelasan Sesuai Kriteria Tugas
 
-### Prerequisites
+### 6.1 Implementasi Flutter
+Aplikasi dibangun menggunakan Flutter sebagai framework utama untuk membuat antarmuka mobile yang modern dan responsif.
+
+### 6.2 Penerapan Software Architecture
+Project ini menggunakan pendekatan terstruktur dengan pemisahan antara:
+- tampilan (screen),
+- logika state (provider),
+- model data (models),
+- dan layanan tambahan (services).
+
+Walaupun masih sederhana, pendekatan ini sudah sesuai dengan prinsip pemisahan tanggung jawab dan memudahkan pengembangan lebih lanjut.
+
+### 6.3 State Management
+State Management diterapkan menggunakan Provider. Provider digunakan untuk mengatur status loading, status login, serta data yang diambil dari API.
+
+### 6.4 Integrasi API
+Aplikasi menggunakan API publik untuk mengambil data list makanan. Proses ini dilakukan di provider dan hasilnya ditampilkan di halaman home.
+
+### 6.5 Local Storage
+Shared Preferences digunakan untuk menyimpan status login pengguna. Dengan fitur ini, aplikasi dapat mengingat apakah pengguna sudah login atau belum.
+
+### 6.6 Fitur Perangkat (Mobile Feature)
+Fitur local notification telah diimplementasikan sebagai fitur perangkat mobile. Notifikasi muncul saat pengguna berhasil login atau melakukan pendaftaran.
+
+### 6.7 Repository GitHub
+Hasil pekerjaan ini disimpan dan dikelola dalam repository GitHub agar mudah dibagikan dan dipelihara.
+
+---
+
+## 7. Cara Menjalankan Aplikasi
+
+### 7.1 Persiapan
+Pastikan Flutter sudah terinstall di komputer Anda.
+
 ```bash
-# Install Flutter (jika belum)
-# Download dari: https://flutter.dev/docs/get-started/install
-
-# Verifikasi instalasi
 flutter doctor
 ```
 
-### Development (Chrome/Web)
-```bash
-cd d:\catersync_app
-flutter pub get
-flutter run -d chrome
-```
-
-### Development (Android Emulator)
-```bash
-# 1. Buat virtual device di Android Studio
-# Tools → AVD Manager → Create Virtual Device
-
-# 2. Jalankan emulator
-# Atau jalankan dari AVD Manager
-
-# 3. Run aplikasi
-cd d:\catersync_app
-flutter run
-```
-
-### Build Release APK (Android)
-```bash
-flutter build apk
-# Output: build/app/outputs/flutter-apk/app-release.apk
-```
-
-### Build Web
-```bash
-flutter build web
-# Output: build/web/
-```
-
----
-
-## 📋 Fitur yang Sudah Dikerjakan
-
-### ✅ UI/UX Implementation
-- [x] Onboarding screen dengan gradient background
-- [x] Logo dan branding CaterSync
-- [x] Karakter 3D (cewe & cowo) pada onboarding
-- [x] Login screen dengan tab switching
-- [x] Sign-up form dengan password confirmation
-- [x] Home screen dengan menu categories
-- [x] Responsive design untuk berbagai ukuran layar
-- [x] Smooth shadow & border radius
-
-### ✅ Navigation & Routing
-- [x] Setup routes di main.dart
-- [x] Get Started button → Login Screen
-- [x] Login button → Home Screen
-- [x] Sign-up button → Home Screen
-- [x] DefaultTabController untuk tab switching
-
-### ✅ Form & State Management
-- [x] TextEditingController untuk email, password, confirm password
-- [x] Password visibility toggle dengan Icon button
-- [x] Forgot password dialog popup
-- [x] Form validation logic (placeholder)
-
-### ✅ Assets & Images
-- [x] Setup folder struktur assets
-- [x] Add images ke pubspec.yaml
-- [x] Replace Icon dengan Image.asset di ketiga screen
-- [x] Logo CaterSync di setiap halaman
-- [x] Karakter cewe & cowo di onboarding
-
-### ✅ Code Quality
-- [x] Flutter analyze (no critical errors)
-- [x] Clean code structure
-- [x] Descriptive comments (Bahasa Indonesia)
-- [x] Consistent styling
-
----
-
-## 📝 Konfigurasi Assets
-
-### Daftar Assets di `pubspec.yaml`
-```yaml
-flutter:
-  assets:
-    - assets/images/
-    - images/
-```
-
-### Lokasi File Gambar
-- `images/Picture1-cewe.png` - Karakter cewe
-- `images/Picture2-cowo.png` - Karakter cowo
-- `images/Picture3-logo.png` - Logo CaterSync
-
----
-
-## 🔧 Customization Guide
-
-### Ubah Warna Tema
-File: `lib/main.dart` & setiap screen
-```dart
-const primaryColor = Color(0xFFFF4B3A);  // Warna merah-orange
-const backgroundColor = Color(0xFFF5F5F5); // Abu-abu terang
-```
-
-### Ubah Ukuran Font
-File: Masing-masing screen (TextStyle)
-```dart
-fontSize: 34,  // Ubah angka ini
-fontWeight: FontWeight.bold,
-```
-
-### Tambah Menu Item
-File: `lib/screen/home_screen.dart`
-```dart
-final List<Map<String, String>> foodMenu = [
-  {'name': 'Menu Baru', 'price': 'Rp XX.XXX'},
-  // ... tambah item lain
-];
-```
-
-### Ganti Gambar
-File: `lib/screen/onboarding_screen.dart`, `login_screen.dart`
-```dart
-Image.asset(
-  'images/Picture3-logo.png',  // Ganti nama file
-  width: 80,
-  height: 80,
-  fit: BoxFit.contain,
-),
-```
-
----
-
-## ⚠️ Known Issues & TODO
-
-### Tidak Selesai
-- [ ] Backend API integration (login/register)
-- [ ] Database untuk menyimpan user & order history
-- [ ] Payment integration
-- [ ] Order tracking
-- [ ] Review & rating system
-- [ ] Push notifications
-
-### Minor Issues
-- `withOpacity` deprecated → gunakan `.withValues()` di versi terbaru
-- Home screen menu items masih menggunakan placeholder icon
-- Forgot password dialog belum connect ke backend
-
----
-
-## 📚 Dokumentasi Useful Links
-
-- [Flutter Official Docs](https://flutter.dev/docs)
-- [Dart Language](https://dart.dev)
-- [Material Design 3](https://m3.material.io/)
-- [Figma untuk UI Design](https://www.figma.com)
-
----
-
-## 👤 Development Notes
-
-### Font Family
-- SF Pro Text (untuk body text)
-- SF Pro Display (untuk heading/judul besar)
-- Default: Roboto (Material Design default)
-
-### Color Palette
-| Warna | Hex Code | Keterangan |
-|-------|----------|-----------|
-| Primary | #FF4B3A | Merah-orange (CTA button) |
-| Accent | #FA4A0C | Orange terang (button text) |
-| Background | #F5F5F5 | Abu-abu terang |
-| Text Dark | #000000 | Teks hitam |
-| Text Light | #999999 | Teks abu-abu |
-
-### Responsive Breakpoints
-- Mobile: < 600px
-- Tablet: 600px - 1200px
-- Desktop: > 1200px
-
----
-
-## 🔄 Workflow untuk Development Lanjutan
-
-### 1. Setup Environment
+### 7.2 Install Dependency
 ```bash
 cd d:\catersync_app
 flutter pub get
 ```
 
-### 2. Run Development
+### 7.3 Jalankan di Chrome/Web
 ```bash
 flutter run -d chrome
-# atau untuk Android:
+```
+
+### 7.4 Jalankan di Emulator Android
+```bash
 flutter run
 ```
 
-### 3. Hot Reload
-Saat aplikasi berjalan, tekan `r` di terminal untuk hot reload (cepat) atau `R` untuk full restart.
-
-### 4. Testing
+### 7.5 Build APK
 ```bash
-flutter test
-```
-
-### 5. Build & Deploy
-```bash
-# Android
 flutter build apk
-
-# iOS
-flutter build ios
-
-# Web
-flutter build web
 ```
 
 ---
 
-## 📞 Support & Questions
+## 8. Screenshots
 
-Untuk pertanyaan atau issue yang ditemukan, silakan:
-1. Check `flutter analyze` untuk compile issues
-2. Check terminal output untuk runtime errors
-3. Lihat dokumentasi Flutter resmi
+Untuk tugas ini, screenshot hasil implementasi aplikasi dapat ditambahkan ke folder berikut:
 
----
+```text
+screenshots/
+```
 
-## 📄 License
-
-Private Project - CaterSync
+Anda dapat menambahkan gambar hasil running aplikasi ke folder tersebut agar dokumentasi lebih lengkap.
 
 ---
 
-**Terakhir diupdate**: 11 Juni 2026  
-**Flutter Version**: 3.44.1  
-**Dart Version**: 3.12.1
+## 9. Kelebihan Aplikasi
+
+- Tampilan sederhana namun menarik.
+- Alur aplikasi mudah dipahami.
+- Sudah menerapkan berbagai konsep penting Flutter.
+- Dapat dikembangkan lebih lanjut menjadi aplikasi yang lebih kompleks.
+
+---
+
+## 10. Kekurangan dan Pengembangan Selanjutnya
+
+Beberapa bagian masih bisa dikembangkan lebih lanjut, misalnya:
+- autentikasi backend yang sebenarnya,
+- database pengguna,
+- fitur keranjang belanja,
+- fitur pembayaran,
+- dan integrasi notifikasi push.
+
+---
+
+## 11. Penutup
+
+Project ini dibuat sebagai bagian dari pembelajaran pengembangan aplikasi mobile menggunakan Flutter. Melalui project ini, mahasiswa dapat memahami bagaimana menghubungkan UI, state management, API, local storage, dan fitur perangkat dalam satu aplikasi yang utuh.
+
+Semoga aplikasi ini dapat menjadi dasar yang baik untuk pengembangan project Flutter yang lebih kompleks di kemudian hari.
+
+---
+
+**Nama Project**: CaterSync Mobile App  
+**Tanggal Dokumentasi**: 4 Juli 2026  
+**Versi Flutter**: 3.12 / sesuai environment yang digunakan

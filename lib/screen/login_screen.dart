@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
+import '../services/notification_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.42, // Ambil 42% tinggi layar
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -64,25 +67,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  child: SafeArea(
+                  child: const SafeArea(
                     bottom: false,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Spacer(),
+                        Spacer(),
                         // Tempat Logo Topi Koki CaterSync
-                        // Logo
-                        Image.asset(
-                          'images/Picture3-logo.png',
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.contain,
+                        Icon(
+                          Icons.restaurant_menu,
+                          size: 80,
+                          color: primaryColor,
                         ),
-                        const Spacer(),
+                        Spacer(),
                         
                         // TabBar (Tombol Pindah Login / Sign-up)
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                          padding: EdgeInsets.symmetric(horizontal: 40.0),
                           child: TabBar(
                             labelColor: Colors.black,
                             unselectedLabelColor: Colors.grey,
@@ -137,74 +138,57 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           _buildTextField(
             label: 'Email address',
             controller: _loginEmailController,
             hint: 'sandisetiawan@gmail.com',
           ),
-          const SizedBox(height: 24),
-          // Password field
-          const Text(
-            'Password',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: Colors.black38,
-              fontFamily: 'SF Pro Text',
-            ),
-          ),
-          TextField(
+          const SizedBox(height: 20),
+          _buildPasswordField(
+            label: 'Password',
             controller: _loginPasswordController,
+            hint: '*********',
             obscureText: _loginObscure,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-            decoration: InputDecoration(
-              hintText: '********',
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black26),
-              ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black87, width: 1.5),
-              ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 8),
-              suffixIcon: IconButton(
-                icon: Icon(_loginObscure ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _loginObscure = !_loginObscure),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              onPressed: () {
-                showDialog<void>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Forgot passcode'),
-                    content: const Text("Password reset isn't implemented yet."),
-                    actions: [
-                      TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
-                    ],
-                  ),
-                );
-              },
-              child: Text('Forgot passcode?', style: TextStyle(color: primaryColor)),
-            ),
+            onToggle: () {
+              setState(() {
+                _loginObscure = !_loginObscure;
+              });
+            },
           ),
           const Spacer(),
-          // Tombol Login
-          _buildActionButton(
-            text: 'Login',
-            onPressed: () {
-              // Pindah ke halaman Home jika sukses login
-              Navigator.pushReplacementNamed(context, '/home');
+          // Tombol Login Terintegrasi Provider, Shared Preferences & Notifikasi
+          Consumer<AuthProvider>(
+            builder: (context, auth, child) {
+              return _buildActionButton(
+                text: auth.isLoading ? 'Loading...' : 'Login',
+                color: primaryColor,
+                onPressed: auth.isLoading ? () {} : () async {
+                  String email = _loginEmailController.text;
+                  String password = _loginPasswordController.text;
+                  
+                  if (email.isNotEmpty && password.isNotEmpty) {
+                    bool success = await auth.login(email);
+                    
+                    if (success && context.mounted) {
+                      // Memunculkan Fitur Perangkat: Local Notification
+                      NotificationService.showNotification(
+                        id: 1,
+                        title: 'Login Berhasil! 🎉',
+                        body: 'Selamat datang kembali di CaterSync.',
+                      );
+                      
+                      // Pindah Halaman ke Home
+                      Navigator.pushReplacementNamed(context, '/home');
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Email dan Password tidak boleh kosong!')),
+                    );
+                  }
+                },
+              );
             },
-            color: primaryColor,
           ),
         ],
       ),
@@ -214,108 +198,74 @@ class _LoginScreenState extends State<LoginScreen> {
   // Widget Form Sign-up
   Widget _buildSignUpForm(Color primaryColor) {
     return Padding(
-      padding: const EdgeInsets.all(40.0),
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          const SizedBox(height: 20),
-          _buildTextField(
-            label: 'Name',
-            controller: _registerNameController,
-            hint: 'Sandi Setiawan',
-          ),
-          const SizedBox(height: 24),
-          _buildTextField(
-            label: 'Email address',
-            controller: _registerEmailController,
-            hint: 'sandisetiawan@gmail.com',
-          ),
-          const SizedBox(height: 24),
-          // Password
-          const Text(
-            'Password',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: Colors.black38,
-              fontFamily: 'SF Pro Text',
+            _buildTextField(
+              label: 'Name',
+              controller: _registerNameController,
+              hint: 'Sandi Setiawan',
             ),
-          ),
-          TextField(
-            controller: _registerPasswordController,
-            obscureText: _registerObscure,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
+            const SizedBox(height: 16),
+            _buildTextField(
+              label: 'Email address',
+              controller: _registerEmailController,
+              hint: 'sandisetiawan@gmail.com',
             ),
-            decoration: InputDecoration(
-              hintText: '********',
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black26),
-              ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black87, width: 1.5),
-              ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 8),
-              suffixIcon: IconButton(
-                icon: Icon(_registerObscure ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _registerObscure = !_registerObscure),
-              ),
+            const SizedBox(height: 16),
+            _buildPasswordField(
+              label: 'Password',
+              controller: _registerPasswordController,
+              hint: '*********',
+              obscureText: _registerObscure,
+              onToggle: () {
+                setState(() {
+                  _registerObscure = !_registerObscure;
+                });
+              },
             ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Confirm Password',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: Colors.black38,
-              fontFamily: 'SF Pro Text',
+            const SizedBox(height: 16),
+            _buildPasswordField(
+              label: 'Confirm Password',
+              controller: _registerConfirmPasswordController,
+              hint: '*********',
+              obscureText: _registerConfirmObscure,
+              onToggle: () {
+                setState(() {
+                  _registerConfirmObscure = !_registerConfirmObscure;
+                });
+              },
             ),
-          ),
-          TextField(
-            controller: _registerConfirmPasswordController,
-            obscureText: _registerConfirmObscure,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
+            const SizedBox(height: 30),
+            // Tombol Sign-up
+            _buildActionButton(
+              text: 'Sign-up',
+              color: primaryColor,
+              onPressed: () {
+                if (_registerEmailController.text.isNotEmpty && _registerNameController.text.isNotEmpty) {
+                  // Simulasi pendaftaran langsung masuk ke Home
+                  NotificationService.showNotification(
+                    id: 2,
+                    title: 'Pendaftaran Berhasil! 🚀',
+                    body: 'Akun CaterSync Anda telah aktif.',
+                  );
+                  Navigator.pushReplacementNamed(context, '/home');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Semua field wajib diisi!')),
+                  );
+                }
+              },
             ),
-            decoration: InputDecoration(
-              hintText: '********',
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black26),
-              ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black87, width: 1.5),
-              ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 8),
-              suffixIcon: IconButton(
-                icon: Icon(_registerConfirmObscure ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _registerConfirmObscure = !_registerConfirmObscure),
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          // Tombol Sign-up
-          _buildActionButton(
-            text: 'Sign-up',
-            onPressed: () {
-              // Aksi setelah register, misal langsung login dan ke Home
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-            color: primaryColor,
-          ),
-          const SizedBox(height: 40),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
 
-  // Berbagi komponen TextField agar kode tetap bersih (Clean Code)
+  // Komponen Input Teks Biasa
   Widget _buildTextField({
     required String label,
     required TextEditingController controller,
@@ -342,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.black.withOpacity(0.2)),
+            hintStyle: TextStyle(color: Colors.black.withValues(alpha: 0.2)),
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black26),
             ),
@@ -350,6 +300,57 @@ class _LoginScreenState extends State<LoginScreen> {
               borderSide: BorderSide(color: Colors.black87, width: 1.5),
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 8),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Komponen Input Password dengan Toggle Mata Obscure
+  Widget _buildPasswordField({
+    required String label,
+    required TextEditingController controller,
+    required String hint,
+    required bool obscureText,
+    required VoidCallback onToggle,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.black38,
+            fontFamily: 'SF Pro Text',
+          ),
+        ),
+        TextField(
+          controller: controller,
+          obscureText: obscureText,
+          style: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+            color: Colors.black87,
+          ),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(color: Colors.black.withValues(alpha: 0.2)),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black26),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black87, width: 1.5),
+            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 8),
+            suffixIcon: IconButton(
+              icon: Icon(
+                obscureText ? Icons.visibility_off : Icons.visibility,
+                color: Colors.black38,
+              ),
+              onPressed: onToggle,
+            ),
           ),
         ),
       ],
