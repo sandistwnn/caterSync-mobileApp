@@ -3,6 +3,7 @@
 **Status**: Prototype / Tugas Pemrograman Mobile Flutter  
 **Platform**: Android, Web, dan dapat dikembangkan ke iOS/Windows  
 **Teknologi**: Flutter + Dart + Provider + Shared Preferences + REST API + Local Notification
+**Link Design FIGMA** : https://www.figma.com/design/UzJBe6hE72xs9T1tGsMR9q/CaterSync--Catering-Food-Delivery-Mobile-App-?node-id=0-1&t=XvHyZLX9RryX98bO-1
 
 ---
 
@@ -172,28 +173,16 @@ flutter build apk
 
 ---
 
-## 8. Screenshots
 
-Untuk tugas ini, screenshot hasil implementasi aplikasi dapat ditambahkan ke folder berikut:
-
-```text
-screenshots/
-```
-
-Anda dapat menambahkan gambar hasil running aplikasi ke folder tersebut agar dokumentasi lebih lengkap.
-
----
-
-## 9. Kelebihan Aplikasi
+## 8. Kelebihan Aplikasi
 
 - Tampilan sederhana namun menarik.
 - Alur aplikasi mudah dipahami.
 - Sudah menerapkan berbagai konsep penting Flutter.
-- Dapat dikembangkan lebih lanjut menjadi aplikasi yang lebih kompleks.
 
 ---
 
-## 10. Kekurangan dan Pengembangan Selanjutnya
+## 9. Kekurangan dan Pengembangan Selanjutnya
 
 Beberapa bagian masih bisa dikembangkan lebih lanjut, misalnya:
 - autentikasi backend yang sebenarnya,
@@ -204,9 +193,9 @@ Beberapa bagian masih bisa dikembangkan lebih lanjut, misalnya:
 
 ---
 
-## 11. Penutup
+## 10. Penutup
 
-Project ini dibuat sebagai bagian dari pembelajaran pengembangan aplikasi mobile menggunakan Flutter. Melalui project ini, mahasiswa dapat memahami bagaimana menghubungkan UI, state management, API, local storage, dan fitur perangkat dalam satu aplikasi yang utuh.
+Project ini dibuat sebagai bagian dari pembelajaran pengembangan aplikasi mobile menggunakan Flutter. Melalui project ini, memahami bagaimana menghubungkan UI, state management, API, local storage, dan fitur perangkat dalam satu aplikasi yang utuh.
 
 Semoga aplikasi ini dapat menjadi dasar yang baik untuk pengembangan project Flutter yang lebih kompleks di kemudian hari.
 
