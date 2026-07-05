@@ -175,8 +175,7 @@ flutter build apk
 ---
 
 
-<<<<<<< HEAD
-Berikut beberapa dokumentasi visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alur penggunaan aplikasi.
+visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alur penggunaan aplikasi.
 
 ### 8.1 Tampilan onboarding dan autentikasi
 
