@@ -177,25 +177,17 @@ flutter build apk
 
 visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alur penggunaan aplikasi.
 
-### 8.1 Tampilan onboarding dan autentikasi
-
-![Tampilan onboarding CaterSync](Screenshot_1783239942.png)
-
-![Form login dan sign up CaterSync](Screenshot_1783239945.png)
+### 8.1 Tampilan onboarding
 
 ![Tampilan layar login CaterSync](Screenshot_1783239681.png)
 
-### 8.2 Halaman home dan daftar menu
+### 8.2 Halaman Login dan Sign Up
 
 ![Halaman home CaterSync](Screenshot_1783239807.png)
-
-![Daftar menu makanan CaterSync](Screenshot_1783239847.png)
 
 ![Tampilan menu makanan CaterSync](Screenshot_1783239894.png)
 
 ### 8.3 Notifikasi dan hasil running aplikasi
-
-![Notifikasi berhasil login CaterSync](Screenshot_1783239903.png)
 
 ![Notifikasi login berhasil CaterSync](Screenshot_1783239918.png)
 
@@ -203,12 +195,12 @@ visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alu
 
 ![Hasil running aplikasi CaterSync](Screenshot_1783239939.png)
 
+<img width="1080" height="2400" alt="Screenshot_1783239942" src="https://github.com/user-attachments/assets/dad78b23-5894-422d-aff4-d1ade13951f5" />
+
+
 ---
 
 ## 9. Kelebihan Aplikasi
-=======
-## 8. Kelebihan Aplikasi
->>>>>>> d352a761ce7b06ce37b86a838667ed38a1053f7b
 
 - Tampilan sederhana namun menarik.
 - Alur aplikasi mudah dipahami.
@@ -216,7 +208,7 @@ visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alu
 
 ---
 
-## 9. Kekurangan dan Pengembangan Selanjutnya
+## 10. Kekurangan dan Pengembangan Selanjutnya
 
 Beberapa bagian masih bisa dikembangkan lebih lanjut, misalnya:
 - autentikasi backend yang sebenarnya,
@@ -227,7 +219,7 @@ Beberapa bagian masih bisa dikembangkan lebih lanjut, misalnya:
 
 ---
 
-## 10. Penutup
+## 11. Penutup
 
 Project ini dibuat sebagai bagian dari pembelajaran pengembangan aplikasi mobile menggunakan Flutter. Melalui project ini, memahami bagaimana menghubungkan UI, state management, API, local storage, dan fitur perangkat dalam satu aplikasi yang utuh.
 
@@ -238,5 +230,3 @@ Semoga aplikasi ini dapat menjadi dasar yang baik untuk pengembangan project Flu
 **Nama Project**: CaterSync Mobile App  
 **Tanggal Dokumentasi**: 4 Juli 2026  
 **Versi Flutter**: 3.12 / sesuai environment yang digunakan
-
-![alt text](Screenshot_1783239942.png) ![alt text](Screenshot_1783239945.png) ![alt text](Screenshot_1783239681.png) ![alt text](Screenshot_1783239807.png) ![alt text](Screenshot_1783239847.png) ![alt text](Screenshot_1783239894.png) ![alt text](Screenshot_1783239903.png) ![alt text](Screenshot_1783239918.png) ![alt text](Screenshot_1783239933.png) ![alt text](Screenshot_1783239939.png)
