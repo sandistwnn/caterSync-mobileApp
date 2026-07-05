@@ -174,13 +174,33 @@ flutter build apk
 
 ## 8. Screenshots
 
-Untuk tugas ini, screenshot hasil implementasi aplikasi dapat ditambahkan ke folder berikut:
+Berikut beberapa dokumentasi visual hasil running aplikasi CaterSync yang disusun secara berurutan sesuai alur penggunaan aplikasi.
 
-```text
-screenshots/
-```
+### 8.1 Tampilan onboarding dan autentikasi
 
-Anda dapat menambahkan gambar hasil running aplikasi ke folder tersebut agar dokumentasi lebih lengkap.
+![Tampilan onboarding CaterSync](Screenshot_1783239942.png)
+
+![Form login dan sign up CaterSync](Screenshot_1783239945.png)
+
+![Tampilan layar login CaterSync](Screenshot_1783239681.png)
+
+### 8.2 Halaman home dan daftar menu
+
+![Halaman home CaterSync](Screenshot_1783239807.png)
+
+![Daftar menu makanan CaterSync](Screenshot_1783239847.png)
+
+![Tampilan menu makanan CaterSync](Screenshot_1783239894.png)
+
+### 8.3 Notifikasi dan hasil running aplikasi
+
+![Notifikasi berhasil login CaterSync](Screenshot_1783239903.png)
+
+![Notifikasi login berhasil CaterSync](Screenshot_1783239918.png)
+
+![Hasil running aplikasi CaterSync](Screenshot_1783239933.png)
+
+![Hasil running aplikasi CaterSync](Screenshot_1783239939.png)
 
 ---
 
@@ -215,3 +235,5 @@ Semoga aplikasi ini dapat menjadi dasar yang baik untuk pengembangan project Flu
 **Nama Project**: CaterSync Mobile App  
 **Tanggal Dokumentasi**: 4 Juli 2026  
 **Versi Flutter**: 3.12 / sesuai environment yang digunakan
+
+![alt text](Screenshot_1783239942.png) ![alt text](Screenshot_1783239945.png) ![alt text](Screenshot_1783239681.png) ![alt text](Screenshot_1783239807.png) ![alt text](Screenshot_1783239847.png) ![alt text](Screenshot_1783239894.png) ![alt text](Screenshot_1783239903.png) ![alt text](Screenshot_1783239918.png) ![alt text](Screenshot_1783239933.png) ![alt text](Screenshot_1783239939.png)
